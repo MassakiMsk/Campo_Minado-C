@@ -1,0 +1,28 @@
+# depslib dependency file v1.0
+1468697805 source:c:\users\massaki\desktop\campo_minado\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<conio.h>
+	<windows.h>
+
+1468692006 source:c:\users\alice\desktop\campo_minado\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<conio.h>
+
+1472166227 source:d:\programação\codeblocks\campo_minado\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<conio.h>
+	<windows.h>
+
+1472162627 source:c:\projetos\codeblocks\campo_minado\main.c
+	<stdio.h>
+	<stdlib.h>
+	<time.h>
+	<conio.h>
+	<windows.h>
+

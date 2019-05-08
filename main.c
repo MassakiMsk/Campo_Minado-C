@@ -102,7 +102,7 @@ void imprime_tabuleiro(int *tabuleiro, int *tabuleiro_aux, int altura, int largu
 
 int main(){
 
-    system("color F0");
+    //system("color F0");
     srand(time(NULL));
 
     int altura, largura, bombas;
@@ -123,7 +123,7 @@ int main(){
     scanf("%d %d", &y, &x);
     abre_casa(&tabuleiro, &tabuleiro_aux, altura, largura, y, x);
 
-    system("cls");
+    clear();
     imprime_tabuleiro(tabuleiro, tabuleiro_aux, altura, largura);
 
     }

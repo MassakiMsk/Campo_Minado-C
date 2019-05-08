@@ -1,51 +1,99 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <conio.h>
-#include <windows.h>
+#include <unistd.h>
+#include <string.h>
 
+#ifdef _WIN32
+    #include <windows.h>
 
-void textcolor (int cor)
-{
-    int iColor;
-    switch(cor){
-        case 0:
-            iColor=2;
-            break;
-        case 1:
-            iColor=9;
-            break;
-        case 2:
-            iColor=6;
-            break;
-        case 3:
-            iColor=11;
-            break;
-        case 4:
-            iColor=3;
-            break;
-        case 5:
-            iColor=8;
-            break;
-        case 6:
-            iColor=10;
-            break;
-        case 7:
-            iColor=12;
-            break;
-        case 8:
-            iColor=4;
-            break;
-        case 15:
-            iColor=0;
-            break;
-    }
-    HANDLE hl = GetStdHandle(STD_OUTPUT_HANDLE);
-    CONSOLE_SCREEN_BUFFER_INFO bufferInfo;
-    BOOL b = GetConsoleScreenBufferInfo(hl, &bufferInfo);
-    bufferInfo.wAttributes &= 0x00F0;
-    SetConsoleTextAttribute (hl, bufferInfo.wAttributes |= iColor);
-}
+    #define textcolor(cor) ({\
+        int iColor;\
+        \
+        switch(cor) {\
+            case 0:\
+            iColor=2;\
+            break;\
+        case 1:\
+            iColor=9;\
+            break;\
+        case 2:\
+            iColor=6;\
+            break;\
+        case 3:\
+            iColor=11;\
+            break;\
+        case 4:\
+            iColor=3;\
+            break;\
+        case 5:\
+            iColor=8;\
+            break;\
+        case 6:\
+            iColor=10;\
+            break;\
+        case 7:\
+            iColor=12;\
+            break;\
+        case 8:\
+            iColor=4;\
+            break;\
+        case 15:\
+            iColor=0;\
+            break;\
+        }\
+        \
+        HANDLE hl = GetStdHandle(STD_OUTPUT_HANDLE);\
+        CONSOLE_SCREEN_BUFFER_INFO bufferInfo;\
+        BOOL b = GetConsoleScreenBufferInfo(hl, &bufferInfo);\
+        bufferInfo.wAttributes &= 0x00F0;\
+        SetConsoleTextAttribute (hl, bufferInfo.wAttributes |= iColor);\
+    })
+
+    #define clear() ({\
+        system("cls");\
+    })
+
+#elif __linux__ || __APPLE__
+    #define textcolor(cor) ({\
+        switch(cor) {\
+            case 0:\
+                printf("\033[01;33m");\
+                break;\
+            case 1:\
+                printf("\033[01;35m");\
+                break;\
+            case 2:\
+                printf("\033[01;32m");\
+                break;\
+            case 3:\
+                printf("\033[01;31m");\
+                break;\
+            case 4:\
+                printf("\033[01;34m");\
+                break;\
+            case 5:\
+                printf("\033[22;31m");\
+                break;\
+            case 6:\
+                printf("\033[01;36m");\
+                break;\
+            case 7:\
+                printf("\033[01;30m");\
+                break;\
+            case 8:\
+                printf("\033[22;36m");\
+                break;\
+            case 15:\
+                printf("\033[01;37m");\
+                break;\
+        }\
+    })
+
+    #define clear() ({\
+        printf("\033[H\033[J");\
+    })
+#endif
 
 void aloca_tabuleiro(int **tabuleiro, int altura, int largura);
 void gera_tabuleiro(int **tabuleiro, int **tabuleiro_aux, int altura, int largura, int bombas);
@@ -79,7 +127,6 @@ int main(){
     imprime_tabuleiro(tabuleiro, tabuleiro_aux, altura, largura);
 
     }
-
 }
 
 void aloca_tabuleiro(int **tabuleiro, int altura, int largura){
@@ -215,5 +262,3 @@ void abre_casa(int **tabuleiro, int **tabuleiro_aux, int altura, int largura, in
 
 
 }
-
-
